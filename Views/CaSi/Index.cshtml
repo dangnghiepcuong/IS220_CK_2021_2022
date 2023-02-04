@@ -1,0 +1,29 @@
+﻿<form action="/CaSi/LietKe" method="post">
+    <label for="NamSinh">Ngày sinh</label>
+    <input name="NamSinh" type="date">
+    <br>
+    <p>Danh sách ca sĩ</p>
+    <br>
+    <table border="1">
+        <tr>
+            <th>STT</th>
+            <th>Tên ca sĩ</th>
+        </tr>
+        @{
+            if (ViewBag.lcs != null)
+            {
+                int i = 0;
+                foreach (string cs in ViewBag.lcs)
+                {
+                    i++;
+                    <tr>
+                        <td>@i</td>
+                        <td>@cs</td>
+                    </tr>
+                }
+            }
+        }
+    </table>
+    <br>
+    <input type="submit" name="Liệt kê">
+</form>

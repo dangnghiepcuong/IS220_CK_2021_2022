@@ -1,0 +1,77 @@
+﻿@using IS220_CK_2021_2022.Models;
+@model IEnumerable<NguoiNghe>
+
+<label for="MaNN">Tên người nghe</label>
+<select name="MaNN" id="MaNN">
+    @{
+        if (ViewBag.lnn != null)
+        {
+            int i = 0;
+            foreach (NguoiNghe nn in ViewBag.lnn)
+            {
+                i++;
+                Console.WriteLine(i);
+                <option value="@nn.MaNN">@nn.TenNN</option>
+            }
+        }
+    }
+</select>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+<script>
+    $(document).ready(function () {
+        var NguoiNghe = function () {
+
+            $.ajax({
+                cache: false,
+                url: '/PLaylist/NguoiNghe'
+            })
+        }
+
+        NguoiNghe()
+
+        var Playlist = function () {
+            nn = $('select').find('option:selected').val()
+            if (nn == undefined)
+                return
+            $.ajax({
+                cache: false,
+                url: '/Playlist/BaiHat',
+                type: 'POST',
+                data: { nn: nn }
+            })
+        }
+
+        Playlist()
+
+        $('select').change(function () {
+            Playlist()
+        })
+    })
+
+</script>
+
+<table border="1">
+    <tr>
+        <th>STT</th>
+        <th>Tên playlist</th>
+        <th>Chức năng</th>
+    </tr>
+    @{
+        if (ViewBag.pl != null)
+        {
+            int i = 0;
+            foreach (Playlist l in ViewBag.pl)
+            {
+                i++;
+                <tr>
+                    <td>i</td>
+                    <td>@l.TenPlayList</td>
+                    <td><a href="/Playlist/Xoa?pl=@l.MaPlayList">Xóa</a></td>
+                </tr>
+            }
+
+        }
+    }
+</table>

@@ -1,0 +1,19 @@
+﻿@model IEnumerable<BaiHat>
+
+<form action="BaiHat/Them" method="post">
+    <table>
+        <tr>
+            <td><label for="MaBaiHat">Mã bài hát</label></td>
+            <td><input name="MaBaiHat" value=""></td>
+        </tr>
+        <tr>
+            <td><label for="TenBaiHat">Tên bài hát</label></td>
+            <td><input name="TenBaiHat"></td>
+        </tr>
+        <tr>
+            <td><label for="TheLoai">Thể loại</label></td>
+            <td><input name="TheLoai"></td>
+        </tr>
+    </table>
+    <input type="submit" value="Thêm">
+</form>

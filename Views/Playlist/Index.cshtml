@@ -1,56 +1,39 @@
 ﻿@using IS220_CK_2021_2022.Models;
-@model IEnumerable<NguoiNghe>
-
-<label for="MaNN">Tên người nghe</label>
-<select name="MaNN" id="MaNN">
-    @{
-        if (ViewBag.lnn != null)
-        {
-            int i = 0;
-            foreach (NguoiNghe nn in ViewBag.lnn)
-            {
-                i++;
-                Console.WriteLine(i);
-                <option value="@nn.MaNN">@nn.TenNN</option>
-            }
-        }
-    }
-</select>
-
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
 <script>
     $(document).ready(function () {
-        var NguoiNghe = function () {
-
-            $.ajax({
-                cache: false,
-                url: '/PLaylist/NguoiNghe'
-            })
-        }
-
-        NguoiNghe()
-
-        var Playlist = function () {
+        @*var Playlist = function () {
             nn = $('select').find('option:selected').val()
-            if (nn == undefined)
+            if (nn == undefined || nn == "")
                 return
             $.ajax({
                 cache: false,
-                url: '/Playlist/BaiHat',
+                url: '/Playlist/Playlist',
                 type: 'POST',
                 data: { nn: nn }
             })
-        }
+        }*@
 
-        Playlist()
-
-        $('select').change(function () {
-            Playlist()
+        $('*').on('change', 'select', function () {
+            $('form').submit()
         })
     })
-
 </script>
+
+<label for="MaNN">Tên người nghe</label>
+<form action="/Playlist/Playlist">
+    <select name="MaNN" id="MaNN">
+        <option value="#"></option>
+
+        @{ if (ViewBag.lnn != null)
+                foreach (NguoiNghe nn in ViewBag.lnn)
+                {
+                    <option value="@nn.MaNN">@nn.TenNN</option>
+                }
+        }
+    </select>
+</form>
 
 <table border="1">
     <tr>
@@ -66,8 +49,8 @@
             {
                 i++;
                 <tr>
-                    <td>i</td>
-                    <td>@l.TenPlayList</td>
+                    <td>@i</td>
+                    <td><a href="/Playlist/BaiHat?pl=@l.MaPlayList">@l.TenPlayList</a></td>
                     <td><a href="/Playlist/Xoa?pl=@l.MaPlayList">Xóa</a></td>
                 </tr>
             }

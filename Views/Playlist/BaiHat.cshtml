@@ -1,0 +1,19 @@
+﻿<table border="1">
+    <tr>
+        <th>Ten bai hat</th>
+        <th>Ten ca si</th>
+    </tr>
+    @{
+        if (ViewBag.BC != null)
+        {
+            foreach (BaiHat bh in ViewBag.BC)
+            {
+                <tr>
+                    <td>@bh.TenBaiHat</td>
+                    <td>@bh.MaBaiHat</td>
+                </tr>
+            }
+
+        }
+    }
+</table>
